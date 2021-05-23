@@ -1,0 +1,30 @@
+
+.todo-app {
+  position: relative;
+  display: block;
+  width: 400px;
+  height: auto;
+  padding: 0;
+  margin: 0 auto 0;
+  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #fff;
+  transition: transform 0.4s ease-in-out;
+
+  &.create-screen {
+    transform: rotateY(180deg);
+
+    .create-todo {
+      z-index: 4;
+      opacity: 1;
+    }
+
+    .todo-view {
+      opacity: 0;
+    }
+  }
+}
+
+@import './CreateToDo/index.scss';
+@import './ViewToDo/index.scss';

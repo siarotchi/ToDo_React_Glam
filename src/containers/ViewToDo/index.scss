@@ -1,0 +1,376 @@
+.todo-view {
+  display: block;
+  height: 480px;
+  opacity: 1;
+  border-radius: inherit;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 8px 15px 0 rgba($blue-3E, .3);
+  transition: opacity 0s ease-in-out 0.2s;
+
+  // todo header
+  .todo-header {
+    position: sticky;
+    display: block;
+    z-index: 3;
+    width: 330px;
+    max-width: 450px;
+    top: 0;
+    left: 50%;
+    padding: 28px 35px 32px;
+    -webkit-transform: translateX(-31px);
+    -moz-transform: translateX(-50%);
+  
+    .header-title {
+      font-size: 18px;
+      color: $white-F0;
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      z-index: -1;
+      width: 100%;
+      height: 10px;
+      top: 0;
+      left: 0;
+      background: $white-F0;
+    }
+
+    &:after {
+      height: 100%;
+      z-index: -1;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-image: linear-gradient(to right, $blue-1D, $blue-3E);
+    }
+  }
+
+  // scroll container
+  .scroll-container {
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 480px;
+    z-index: 3;
+    height: 412px;
+    transform: translateX(-32px);
+
+    .list-container {
+      width: 400px;
+      margin: 0 auto;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background: #fff;
+    }
+  }
+
+  // todo item
+  .todo-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    // width: 400px;
+    padding: 30px 35px;
+    padding-right: 25px;
+    background: #fff;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, 
+                z-index 0.3s ease-in-out;
+    cursor: pointer;
+
+    .item-info {
+      position: relative;
+      display: block;
+      width: 250px;
+
+      .time {
+        position: relative;
+        display: block;
+        padding: 0;
+        margin: 0 0 5px 0;
+        font-size: 20px;
+        color: $grey-D1;
+      }
+
+      .title {
+        padding: 0 0 0 2px;
+        margin: 0;
+        font-weight: 500;
+        font-size: 20px;
+        color: $dark-6A;
+        word-break: break-all;
+      }
+    }
+
+    .item-settings {
+      position: relative;
+      display: block;
+      width: 75px;
+
+      .settings-button {
+        position: absolute;
+        display: block;
+        z-index: 2;
+        width: 25px;
+        height: 25px;
+        top: 50%;
+        right: 0;
+        border-radius: 50%;
+        border: 1px solid $blue-1D;
+        background: #fff;
+        transform: translateY(-50%);
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+
+        &:before, &:after {
+          content: '';
+          position: absolute;
+          display: block;
+          pointer-events: none;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          border-radius: 50%;
+          background: $blue-1D;
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        &:after {
+          background: #fff;
+          animation: none;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+
+          50% {
+            transform: scale(1.7);
+            opacity: 0;
+          }
+
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
+      }
+
+      .settings-icon {
+        position: absolute;
+        display: block;
+        z-index: 0;
+        opacity: 0;
+        width: 35px;
+        height: 35px;
+        left: calc(100% - 35px);
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0px 1px 7px 0px rgba($grey-D1, 0.5);
+        transform: translateY(-50%);
+        transition: box-shadow 0.3s ease-in-out, 
+                    transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+                    top 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
+        cursor: pointer;
+
+        svg {
+          position: absolute;
+          top: 10px;
+          left: 8px;
+        }
+
+        &:first-of-type {
+          top: 50%;
+        }
+
+        &:nth-last-of-type(2) {
+          top: 50%;
+
+          svg {
+            top: 9px
+          }
+        }
+
+        &:last-of-type {
+          bottom: -50%;
+        }
+
+        &:hover {
+          box-shadow: 0px 1px 7px 0px rgba($grey-D1, 1);
+        }
+      }
+
+      &.active {
+        z-index: 3;
+
+        .settings-icon {
+          opacity: 1;
+  
+          &:first-of-type {
+            top: -30px;
+            left: 5px;
+          }
+  
+          &:nth-last-of-type(2) {
+            top: 50%;
+            left: -30px;
+          }
+  
+          &:last-of-type {
+            bottom: -30px;
+            left: 5px;
+            transform: translateY(50%);
+          }
+        }
+      }
+    }
+
+    &.done {
+
+      .item-info {
+
+        .title {
+          color: $grey-D1;
+          text-decoration: line-through;
+        }
+      }
+
+      .item-settings {
+
+        .settings-button {
+          border: none;
+
+          svg {
+            margin-top: 4px;
+            margin-left: 3px;
+          }
+
+          &::before, &:after {
+            display: none;
+          }
+        }
+      }
+
+    }
+
+    &.deleted {
+      animation: deleteAnimation 0.7s linear 1;
+    }
+
+    @keyframes deleteAnimation {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(25%);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(50%);
+      }
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      display: block;
+    }
+
+    &:before {
+      opacity: 0;
+      width: 10px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: $blue-3E;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &:after {
+      width: 100%;
+      height: 1px;
+      top: calc(100% - 1px);
+      left: 0;
+      background: rgba($grey-D1, 0.5);
+    }
+
+    &:hover {
+      z-index: 3;
+      box-shadow: 5px 5px 15px 0 rgba($blue-3E, 0.4);
+      transform: scale(1.1);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &:last-of-type:after {
+      display: none;
+    }
+  }
+
+  // empty list
+  .empty-list-text {
+    display: block;
+    padding: 0 20px;
+    margin-top: 110px;
+    color: $dark-6A;
+    text-align: center;
+  }
+
+  // add todo item
+  .add-todo-item {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 60px;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background: linear-gradient(transparent, rgba($grey-D1, 0.4), rgba($grey-D1, 0.7));
+  
+    .add-item-button {
+      position: relative;
+      display: block;
+      width: 58px;
+      height: 58px;
+      margin: 1px auto 0;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 1px rgba($blue-3E, .9);
+      background-color: $blue-1D;
+      transition: background-color 0.3s ease-in-out;
+      cursor: pointer;
+
+
+      &::before, &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 35px;
+        height: 3px;
+        top: calc(50% - 1px);
+        left: 12px;
+        background-color: $white-F0;
+      }
+
+      &:after {
+        transform: rotate(90deg);
+        transform-origin: center;
+      }
+
+      &:hover {
+        background-color: $blue-3E;
+      }
+    }
+  }
+}

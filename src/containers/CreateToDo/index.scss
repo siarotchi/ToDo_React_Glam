@@ -1,0 +1,106 @@
+.create-todo {
+  position: absolute;
+  display: block;
+  z-index: -1;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  background: $purple-46;
+  transform: rotateY(180deg);
+  transition: z-index 0s ease-in-out 0.2s, opacity 0s ease-in-out 0.2s;
+
+  // todo header
+  .create-todo-header {
+    position: relative;
+    display: block;
+    padding: 25px 20px 55px;
+
+    .back-icon {
+      position: absolute;
+      display: inline-block;
+      z-index: 2;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      transform: scale(1);
+      transition: transform 0.3s ease-in-out;
+      
+      svg path {
+        transition: fill 0.3s ease-in-out;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+
+        svg path {
+          fill: $blue-1D;
+        }
+      }
+    }
+
+    .header-title {
+      position: relative;
+      display: block;
+      text-align: center;
+      color: $white-F0;
+    }
+  }
+
+  // todo-form
+  .create-todo-form {
+    padding: 0 20px;
+
+    .form-field {
+      margin-bottom: 15px;
+    }
+
+    .default-field {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 5px 0;
+      margin-bottom: 5px;
+      color: $white-F0;
+      border: none;
+      border-bottom: 1px solid rgba(white, 0.5);
+      background: transparent;
+      transition: border-color 0.3s ease-in-out;
+
+      &::placeholder {
+        color: white
+      }
+
+      &:focus {
+        border-color: $white-F0;
+      }
+    }
+
+    .error-field {
+      font-size: 14px;
+      color: $brown-CE;
+    }
+
+    .add-todo-button {
+      position: relative;
+      display: table;
+      padding: 21px 50px 19px;
+      margin: 30px auto 0;
+      border-radius: 5px;
+      border: none;
+      background-color: $blue-3E;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+
+      span {
+        color: $white-F0;
+      }
+
+      &:hover {
+        background-color: $blue-1D;
+      }
+    }
+  }
+}
